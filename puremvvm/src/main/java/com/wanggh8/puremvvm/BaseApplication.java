@@ -9,6 +9,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStore;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
+
 /**
  * @author wanggh8
  * @version V1.0
@@ -26,6 +29,28 @@ public class BaseApplication extends Application implements ViewModelStoreOwner 
 
         mAppViewModelStore = new ViewModelStore();
 
+        initLog();
+
+    }
+
+    /**
+     * 初始化日志框架
+     *
+     * Logger.d("debug");
+     * Logger.e("error");
+     * Logger.w("warning");
+     * Logger.v("verbose");
+     * Logger.i("information");
+     * Logger.wtf("What a Terrible Failure");
+     * Logger.json(JSON_CONTENT);
+     * Logger.xml(XML_CONTENT);
+     * Logger.d(MAP);
+     * Logger.d(SET);
+     * Logger.d(LIST);
+     * Logger.d(ARRAY);
+     */
+    private void initLog() {
+        Logger.addLogAdapter(new AndroidLogAdapter());
     }
 
     public ViewModelProvider getAppViewModelProvider(Activity activity) {

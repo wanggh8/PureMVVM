@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -166,7 +167,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
      *
      * @param list 数据列表
      */
-    public void setCollection(List<T> list) {
+    public void setCollection(@Nullable List<T> list) {
         if (list == null) {
             list = new ArrayList<>();
         }

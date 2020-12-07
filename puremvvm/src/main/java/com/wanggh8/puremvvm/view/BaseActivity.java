@@ -2,6 +2,7 @@ package com.wanggh8.puremvvm.view;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,7 +38,12 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // 页面接受的参数方法
+        initParam();
+        // 页面数据初始化方法
+        initData();
+        // 页面事件监听的方法，一般用于ViewModel层转到View层的事件注册
+        initViewObservable();
     }
 
     @Override
@@ -117,6 +123,51 @@ public class BaseActivity extends AppCompatActivity {
     protected ViewModelProvider getActivityViewModelProvider(AppCompatActivity activity) {
         return new ViewModelProvider(activity, activity.getDefaultViewModelProviderFactory());
     }
+
+    /**
+     * 跳转页面
+     *
+     * @param toActivity 所跳转的目的Activity类
+     */
+    public void startActivity(Class<?> toActivity) {
+        startActivity(new Intent(this, toActivity));
+    }
+
+    /**
+     * 跳转页面
+     *
+     * @param toActivity 所跳转的目的Activity类
+     * @param bundle 跳转所携带的信息
+     */
+    public void startActivity(Class<?> toActivity, Bundle bundle) {
+        Intent intent = new Intent(this, toActivity);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+    }
+
+    /**
+     * 初始化页面参数 如布局方向
+     */
+    public void initParam() {
+
+    }
+
+    /**
+     * 初始化数据
+     */
+    public void initData() {
+
+    }
+
+    /**
+     * 页面事件监听, 事件注册
+     */
+    public void initViewObservable() {
+
+    }
+
 
     /**
      * 判断是否debug模式

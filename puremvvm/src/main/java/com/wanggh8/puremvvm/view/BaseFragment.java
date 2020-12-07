@@ -1,6 +1,7 @@
 package com.wanggh8.puremvvm.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,7 @@ public class BaseFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
+        mActivity = (AppCompatActivity) context;
     }
 
     /**
@@ -44,8 +46,9 @@ public class BaseFragment extends Fragment {
      */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        // 页面接受的参数方法
+        initParam();
         // 方便调试，添加当前Fragment名
         Log.d("onCreate mFragment ：", getClass().getSimpleName());
 
@@ -63,7 +66,6 @@ public class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         return null;
     }
 
@@ -76,7 +78,18 @@ public class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
     }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // 页面数据初始化方法
+        initData();
+        // 页面事件监听的方法，一般用于ViewModel层转到View层的事件注册
+        initViewObservable();
+    }
+
 
     @Nullable
     @Override
@@ -108,8 +121,48 @@ public class BaseFragment extends Fragment {
         return NavHostFragment.findNavController(this);
     }
 
-    public boolean isDebug() {
-        return mActivity.getApplicationContext().getApplicationInfo() != null &&
-                (mActivity.getApplicationContext().getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+    /**
+     * 初始化页面参数 如布局方向
+     */
+    public void initParam() {
+
     }
+
+    /**
+     * 初始化数据
+     */
+    public void initData() {
+
+    }
+
+    /**
+     * 页面事件监听, 事件注册
+     */
+    public void initViewObservable() {
+
+    }
+
+    /**
+     * 跳转页面
+     *
+     * @param toActivity 所跳转的目的Activity类
+     */
+    public void startActivity(Class<?> toActivity) {
+        startActivity(new Intent(mContext, toActivity));
+    }
+
+    /**
+     * 跳转页面
+     *
+     * @param toActivity 所跳转的目的Activity类
+     * @param bundle 跳转所携带的信息
+     */
+    public void startActivity(Class<?> toActivity, Bundle bundle) {
+        Intent intent = new Intent(mContext, toActivity);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+    }
+
 }

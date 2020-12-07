@@ -36,6 +36,7 @@ public class BaseApplication extends Application implements ViewModelStoreOwner 
     /**
      * 初始化日志框架
      *
+     * 使用：
      * Logger.d("debug");
      * Logger.e("error");
      * Logger.w("warning");

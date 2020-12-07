@@ -91,7 +91,7 @@ public final class NetworkUtils {
             // default ping ip
             ip = "223.5.5.5";
         }
-        com.kunminx.architecture.utils.ShellUtils.CommandResult result = com.kunminx.architecture.utils.ShellUtils.execCmd(String.format("ping -c 1 %s", ip), false);
+        com.wanggh8.puremvvm.util.ShellUtils.CommandResult result = com.wanggh8.puremvvm.util.ShellUtils.execCmd(String.format("ping -c 1 %s", ip), false);
         boolean ret = result.result == 0;
         if (result.errorMsg != null) {
             Log.d("NetworkUtils", "isAvailableByPing() called" + result.errorMsg);
@@ -277,13 +277,13 @@ public final class NetworkUtils {
      *
      * @return type of network
      * <ul>
-     * <li>{@link com.kunminx.architecture.utils.NetworkUtils.NetworkType#NETWORK_ETHERNET} </li>
-     * <li>{@link com.kunminx.architecture.utils.NetworkUtils.NetworkType#NETWORK_WIFI    } </li>
-     * <li>{@link com.kunminx.architecture.utils.NetworkUtils.NetworkType#NETWORK_4G      } </li>
-     * <li>{@link com.kunminx.architecture.utils.NetworkUtils.NetworkType#NETWORK_3G      } </li>
-     * <li>{@link com.kunminx.architecture.utils.NetworkUtils.NetworkType#NETWORK_2G      } </li>
-     * <li>{@link com.kunminx.architecture.utils.NetworkUtils.NetworkType#NETWORK_UNKNOWN } </li>
-     * <li>{@link com.kunminx.architecture.utils.NetworkUtils.NetworkType#NETWORK_NO      } </li>
+     * <li>{@link com.wanggh8.puremvvm.util.NetworkUtils.NetworkType#NETWORK_ETHERNET} </li>
+     * <li>{@link com.wanggh8.puremvvm.util.NetworkUtils.NetworkType#NETWORK_WIFI    } </li>
+     * <li>{@link com.wanggh8.puremvvm.util.NetworkUtils.NetworkType#NETWORK_4G      } </li>
+     * <li>{@link com.wanggh8.puremvvm.util.NetworkUtils.NetworkType#NETWORK_3G      } </li>
+     * <li>{@link com.wanggh8.puremvvm.util.NetworkUtils.NetworkType#NETWORK_2G      } </li>
+     * <li>{@link com.wanggh8.puremvvm.util.NetworkUtils.NetworkType#NETWORK_UNKNOWN } </li>
+     * <li>{@link com.wanggh8.puremvvm.util.NetworkUtils.NetworkType#NETWORK_NO      } </li>
      * </ul>
      */
     @RequiresPermission(ACCESS_NETWORK_STATE)

@@ -41,7 +41,7 @@ public final class ScreenUtils {
      * @return the width of screen, in pixel
      */
     public static int getScreenWidth() {
-        WindowManager wm = (WindowManager) com.kunminx.architecture.utils.Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) com.wanggh8.puremvvm.util.Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
         Point point = new Point();
         wm.getDefaultDisplay().getRealSize(point);
         return point.x;
@@ -53,7 +53,7 @@ public final class ScreenUtils {
      * @return the height of screen, in pixel
      */
     public static int getScreenHeight() {
-        WindowManager wm = (WindowManager) com.kunminx.architecture.utils.Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) com.wanggh8.puremvvm.util.Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
         Point point = new Point();
         wm.getDefaultDisplay().getRealSize(point);
         return point.y;
@@ -129,7 +129,7 @@ public final class ScreenUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isLandscape() {
-        return com.kunminx.architecture.utils.Utils.getApp().getResources().getConfiguration().orientation
+        return com.wanggh8.puremvvm.util.Utils.getApp().getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE;
     }
 
@@ -148,7 +148,7 @@ public final class ScreenUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isPortrait() {
-        return com.kunminx.architecture.utils.Utils.getApp().getResources().getConfiguration().orientation
+        return com.wanggh8.puremvvm.util.Utils.getApp().getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_PORTRAIT;
     }
 
@@ -234,7 +234,7 @@ public final class ScreenUtils {
      */
     public static boolean isScreenLock() {
         KeyguardManager km =
-                (KeyguardManager) com.kunminx.architecture.utils.Utils.getApp().getSystemService(Context.KEYGUARD_SERVICE);
+                (KeyguardManager) com.wanggh8.puremvvm.util.Utils.getApp().getSystemService(Context.KEYGUARD_SERVICE);
         return km.inKeyguardRestrictedInputMode();
     }
 
@@ -246,7 +246,7 @@ public final class ScreenUtils {
     public static int getSleepDuration() {
         try {
             return Settings.System.getInt(
-                    com.kunminx.architecture.utils.Utils.getApp().getContentResolver(),
+                    com.wanggh8.puremvvm.util.Utils.getApp().getContentResolver(),
                     Settings.System.SCREEN_OFF_TIMEOUT
             );
         } catch (Settings.SettingNotFoundException e) {
@@ -264,7 +264,7 @@ public final class ScreenUtils {
     @RequiresPermission(WRITE_SETTINGS)
     public static void setSleepDuration(final int duration) {
         Settings.System.putInt(
-                com.kunminx.architecture.utils.Utils.getApp().getContentResolver(),
+                com.wanggh8.puremvvm.util.Utils.getApp().getContentResolver(),
                 Settings.System.SCREEN_OFF_TIMEOUT,
                 duration
         );
@@ -276,7 +276,7 @@ public final class ScreenUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isTablet() {
-        return (com.kunminx.architecture.utils.Utils.getApp().getResources().getConfiguration().screenLayout
+        return (com.wanggh8.puremvvm.util.Utils.getApp().getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }

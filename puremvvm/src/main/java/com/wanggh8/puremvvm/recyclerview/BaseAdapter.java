@@ -20,7 +20,7 @@ import java.util.List;
  * @version V1.0
  * @date 2020/12/7
  */
-public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder<T>>{
+public abstract class BaseAdapter<T extends BaseItem> extends RecyclerView.Adapter<BaseViewHolder<T>>{
 
     protected Context context;
     // 数据集
@@ -42,7 +42,22 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return list.get(position).getItemType();
+    }
+
     /* * * * * * * * ViewHolder * * * * * * * */
+
+    /**
+     * 有布局服务的ViewHolder抽象构造方法
+     *
+     * @param inflater 布局服务
+     * @param parent 父ViewGroup
+     * @param viewType The view type of the new View.
+     * @return BaseViewHolder<T>
+     */
+    public abstract BaseViewHolder<T> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType);
 
     /**
      * 无布局服务的ViewHolder构造方法
@@ -54,7 +69,10 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     @NonNull
     @Override
     public BaseViewHolder<T> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return onCreateViewHolder(parent, viewType);
+        if (inflater == null) {
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+        return onCreateViewHolder(inflater,parent, viewType);
     }
 
     /**

@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class RecyclerViewBindingAdapter {
 
-    @BindingAdapter(value = {"adapter", "autoScrollToTopWhenInsert", "autoScrollToBottomWhenInsert"}, requireAll = false)
+    @BindingAdapter(value = {"adapter","list", "autoScrollToTopWhenInsert", "autoScrollToBottomWhenInsert"}, requireAll = false)
     public static void bindList(RecyclerView recyclerView, BaseAdapter<BaseItem> adapter, List<BaseItem> list,
                                 boolean autoScrollToTopWhenInsert, boolean autoScrollToBottomWhenInsert){
 

@@ -1,3 +1,19 @@
+/*
+ * Copyright 2020-present wanggh8
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.wanggh8.puremvvm.recyclerview;
 
 import android.content.Context;
@@ -13,14 +29,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.wanggh8.puremvvm.config.PureConfig.FAST_CLICK_DELAY_TIME;
+
 /**
- * Adapter基类
+ * 通用Adapter基类
  *
  * @author wanggh8
  * @version V1.0
- * @date 2020/12/7
+ * @date 2020/12/8
  */
-public abstract class BaseAdapter<T extends BaseItem> extends RecyclerView.Adapter<BaseViewHolder<T>>{
+public abstract class PureAdapter<T extends PureItem> extends RecyclerView.Adapter<PureViewHolder<T>>{
 
     protected Context context;
     // 数据集
@@ -30,13 +48,13 @@ public abstract class BaseAdapter<T extends BaseItem> extends RecyclerView.Adapt
     // 布局解释器
     public LayoutInflater inflater;
 
-    public BaseAdapter(Context context, List<T> list) {
+    public PureAdapter(Context context, List<T> list) {
         this.context = context;
         this.list = list;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public BaseAdapter(Context context) {
+    public PureAdapter(Context context) {
         this.context = context;
         this.list = new ArrayList<>();
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -57,7 +75,7 @@ public abstract class BaseAdapter<T extends BaseItem> extends RecyclerView.Adapt
      * @param viewType The view type of the new View.
      * @return BaseViewHolder<T>
      */
-    public abstract BaseViewHolder<T> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType);
+    public abstract PureViewHolder<T> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType);
 
     /**
      * 无布局服务的ViewHolder构造方法
@@ -68,11 +86,11 @@ public abstract class BaseAdapter<T extends BaseItem> extends RecyclerView.Adapt
      */
     @NonNull
     @Override
-    public BaseViewHolder<T> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PureViewHolder<T> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (inflater == null) {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
-        return onCreateViewHolder(inflater,parent, viewType);
+        return onCreateViewHolder(inflater, parent, viewType);
     }
 
     /**
@@ -82,12 +100,16 @@ public abstract class BaseAdapter<T extends BaseItem> extends RecyclerView.Adapt
      * @param position 当前数据位置
      */
     @Override
-    public void onBindViewHolder(@NonNull BaseViewHolder<T> holder, int position) {
+    public void onBindViewHolder(@NonNull PureViewHolder<T> holder, int position) {
         // 调用抽象接口绑定数据
-        holder.onBind(holder.getBinding(), getItem(position), position);
+        holder.onBind(getItem(position), position);
+        // 使用recyclerview:1.2.0以后需要使用
+        // holder.getBindingAdapterPosition();
         // 设置点击侦听事件
-        onClickEvent(holder.itemView, position);
+        onClickEvent(holder.itemView, holder.getAdapterPosition());
     }
+
+
 
     // ------------------------------------------------------------------------
     // 点击事件侦听
@@ -133,7 +155,7 @@ public abstract class BaseAdapter<T extends BaseItem> extends RecyclerView.Adapt
     public void onClickEvent(View v, int position) {
         v.setOnClickListener(view -> {
             long currentTime = Calendar.getInstance().getTimeInMillis();
-            if (currentTime - lastClickTime > 300) {
+            if (currentTime - lastClickTime > FAST_CLICK_DELAY_TIME) {
                 lastClickTime = currentTime;
                 onItemClickListener.onItemClick(position, getItem(position));
             }

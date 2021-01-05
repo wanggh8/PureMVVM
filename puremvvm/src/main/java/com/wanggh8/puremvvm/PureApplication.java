@@ -1,3 +1,19 @@
+/*
+ * Copyright 2020-present wanggh8
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.wanggh8.puremvvm;
 
 import android.app.Activity;
@@ -9,28 +25,39 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStore;
 import androidx.lifecycle.ViewModelStoreOwner;
 
-import com.orhanobut.logger.AndroidLogAdapter;
-import com.orhanobut.logger.Logger;
+import com.wanggh8.puremvvm.util.Log.PureLogger;
 
 /**
  * @author wanggh8
  * @version V1.0
  * @date 2020/11/30
  */
-public class BaseApplication extends Application implements ViewModelStoreOwner {
+public class PureApplication extends Application implements ViewModelStoreOwner {
 
     private ViewModelStore mAppViewModelStore;
     private ViewModelProvider.Factory mFactory;
-
+    private boolean isLog = true;
+    private boolean isLogToFile = false;
 
     @Override
     public void onCreate() {
         super.onCreate();
-
         mAppViewModelStore = new ViewModelStore();
+    }
 
-        initLog();
-
+    /**
+     * 设置logger
+     *
+     * @param enableLogger 是否启用PureLogger
+     * @param isLog 是否在控制台显示Log
+     * @param isLogToFile 是否输出Log到文件
+     */
+    public void setPureLogger(boolean enableLogger, boolean isLog, boolean isLogToFile) {
+        this.isLog = isLog;
+        this.isLogToFile = isLogToFile;
+        if (enableLogger) {
+            initLogger();
+        }
     }
 
     /**
@@ -50,13 +77,13 @@ public class BaseApplication extends Application implements ViewModelStoreOwner 
      * Logger.d(LIST);
      * Logger.d(ARRAY);
      */
-    private void initLog() {
-        Logger.addLogAdapter(new AndroidLogAdapter());
+    private void initLogger() {
+        PureLogger.initLogger(isLog, isLogToFile);
     }
 
     public ViewModelProvider getAppViewModelProvider(Activity activity) {
-        return new ViewModelProvider((BaseApplication) activity.getApplicationContext(),
-                ((BaseApplication) activity.getApplicationContext()).getAppFactory(activity));
+        return new ViewModelProvider((PureApplication) activity.getApplicationContext(),
+                ((PureApplication) activity.getApplicationContext()).getAppFactory(activity));
     }
 
     private ViewModelProvider.Factory getAppFactory(Activity activity) {

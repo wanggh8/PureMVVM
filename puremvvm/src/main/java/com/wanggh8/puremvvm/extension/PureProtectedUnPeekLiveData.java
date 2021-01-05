@@ -50,7 +50,7 @@ import java.util.Map;
  * <p>
  * Create by KunMinX at 19/9/23
  */
-public class ProtectedUnPeekLiveData<T> extends LiveData<T> {
+public class PureProtectedUnPeekLiveData<T> extends LiveData<T> {
 
     protected boolean isAllowNullValue;
 

@@ -28,7 +28,7 @@ import androidx.lifecycle.Observer;
  * <p>
  * Create by KunMinX at 2020/7/21
  */
-public class UnPeekLiveData<T> extends ProtectedUnPeekLiveData<T> {
+public class PureUnPeekLiveDataPure<T> extends PureProtectedUnPeekLiveData<T> {
 
     @Override
     public void setValue(T value) {
@@ -94,8 +94,8 @@ public class UnPeekLiveData<T> extends ProtectedUnPeekLiveData<T> {
             return this;
         }
 
-        public UnPeekLiveData<T> create() {
-            UnPeekLiveData<T> liveData = new UnPeekLiveData<>();
+        public PureUnPeekLiveDataPure<T> create() {
+            PureUnPeekLiveDataPure<T> liveData = new PureUnPeekLiveDataPure<>();
             liveData.isAllowNullValue = this.isAllowNullValue;
             return liveData;
         }

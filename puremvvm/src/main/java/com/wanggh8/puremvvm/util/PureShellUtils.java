@@ -1,5 +1,9 @@
 package com.wanggh8.puremvvm.util;
 
+import android.content.Context;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
+
 import androidx.annotation.NonNull;
 
 import java.io.BufferedReader;
@@ -10,19 +14,58 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/08/07
- *     desc  : utils about shell
- * </pre>
+ * 命令行相关工具类
+ *
+ * @author wanggh8
+ * @version V1.0
+ * @date 2020/10/10
  */
-public final class ShellUtils {
+public final class PureShellUtils {
 
     private static final String LINE_SEP = System.getProperty("line.separator");
 
-    private ShellUtils() {
+    private PureShellUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
+    /**
+     * from dp to px
+     */
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        int value = Math.round(dpValue * scale);
+        if (value == 0) {
+            value = 1;
+        }
+        return value;
+    }
+
+    /**
+     * 获取屏幕的宽
+     *
+     * @param context
+     *            当前上下文
+     * @return 屏幕宽
+     */
+    public static int getScreenWidthPix(Context context) {
+        DisplayMetrics dm = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(dm);
+        return dm.widthPixels;
+    }
+
+    /**
+     * 获取屏幕的高
+     *
+     * @param context
+     *            当前上下文
+     * @return 屏幕高
+     */
+    public static int getScreenHeightPix(Context context) {
+        DisplayMetrics dm = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(dm);
+        return dm.heightPixels;
     }
 
     /**
@@ -203,4 +246,6 @@ public final class ShellUtils {
                     "errorMsg: " + errorMsg;
         }
     }
+
+
 }

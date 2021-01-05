@@ -28,13 +28,13 @@ import javax.net.ssl.HttpsURLConnection;
  *     desc  : utils about file
  * </pre>
  */
-public final class FileUtils {
+public final class PureFileUtils {
 
     private static final String LINE_SEP = System.getProperty("line.separator");
     private static final char[] HEX_DIGITS =
             {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
-    private FileUtils() {
+    private PureFileUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 

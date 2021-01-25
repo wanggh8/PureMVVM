@@ -43,10 +43,18 @@ import static com.wanggh8.puremvvm.config.PureConfig.FAST_CLICK_DELAY_TIME;
  */
 public abstract class PureSimpleDataBindingAdapter<T extends PureItem, B extends ViewDataBinding> extends PureDataBindingAdapter<T, B>{
 
-    private int layout = 0;
+    protected int layout = 0;
 
     public PureSimpleDataBindingAdapter(Context context, int layout) {
         super(context);
+        this.layout = layout;
+    }
+
+    public int getLayout() {
+        return layout;
+    }
+
+    public void setLayout(int layout) {
         this.layout = layout;
     }
 

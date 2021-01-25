@@ -68,6 +68,21 @@ public class PureRecyclerViewBindingAdapter {
         }
     }
 
+    @BindingAdapter(value = {"itemNoDoubleClick"}, requireAll = false)
+    public static void itemNoDoubleClick(RecyclerView recyclerView, PureDataBindingAdapter.ItemNoDoubleClickListener listener) {
+        if (recyclerView == null) {
+            return;
+        }
+        if (recyclerView.getAdapter() == null) {
+            return;
+        }
+
+        if (recyclerView.getAdapter() instanceof PureDataBindingAdapter) {
+            PureDataBindingAdapter adapter = (PureDataBindingAdapter) recyclerView.getAdapter();
+            adapter.setSimpleOnItemNoDoubleClickListener(listener);
+        }
+    }
+
     @BindingAdapter(value = {"itemLongClick"}, requireAll = false)
     public static void itemLongClick(RecyclerView recyclerView, PureDataBindingAdapter.ItemLongClickListener listener) {
         if (recyclerView == null) {

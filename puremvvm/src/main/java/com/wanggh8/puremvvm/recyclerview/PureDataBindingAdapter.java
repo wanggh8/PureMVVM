@@ -135,6 +135,8 @@ public abstract class PureDataBindingAdapter<T extends PureItem, B extends ViewD
 
     protected ItemNoDoubleClickListener<T> onItemNoDoubleClickListener;
 
+
+
     public interface ItemClickListener<T> {
         /**
          * 点击事件回调
@@ -163,6 +165,7 @@ public abstract class PureDataBindingAdapter<T extends PureItem, B extends ViewD
         void onItemNoDoubleClick(int position, T item);
     }
 
+
     public void setSimpleOnItemClickListener(ItemClickListener<T> itemClickListener) {
         this.onItemClickListener = itemClickListener;
     }
@@ -174,6 +177,7 @@ public abstract class PureDataBindingAdapter<T extends PureItem, B extends ViewD
     public void setSimpleOnItemLongClickListener(ItemLongClickListener<T> itemLongClickListener) {
         this.onItemLongClickListener = itemLongClickListener;
     }
+
 
     /**
      * 点击事件

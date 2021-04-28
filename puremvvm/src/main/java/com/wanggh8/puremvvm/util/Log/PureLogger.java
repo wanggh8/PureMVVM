@@ -6,6 +6,8 @@ import com.orhanobut.logger.DiskLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.PrettyFormatStrategy;
 
+import java.util.List;
+
 /**
  * @author wanggh8
  * @version V1.0
@@ -77,11 +79,16 @@ public class PureLogger {
         }
     }
 
+    /**
+     * 打印列表和对象时，对象需继承JSONBean
+     * @param object
+     */
     public static void d(Object object) {
         if (IS_LOGGER) {
             com.orhanobut.logger.Logger.d(object);
         }
     }
+
 
     public static void i(String tag, String msg) {
         if (IS_LOGGER) {
